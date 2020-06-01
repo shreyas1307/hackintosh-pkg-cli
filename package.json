@@ -1,0 +1,22 @@
+{
+    "name": "hackintosh-pkg-cli",
+    "version": "1.0.0",
+    "description": "A CLI to help download the latest OpenCore Package and Kexts for your Hackintosh!",
+    "main": "index.js",
+    "scripts": {
+        "pkg-cli": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "bin": {
+        "hackintosh-pkg-cli": "index.js"
+    },
+    "author": "Shreyas Balachandran",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.19.2",
+        "chalk": "^4.0.0",
+        "clear": "^0.1.0",
+        "figlet": "^1.4.0",
+        "inquirer": "^7.1.0"
+    }
+}
