@@ -7,9 +7,9 @@ const inquirer = require("inquirer");
 const clear = require("clear");
 const chalk = require("chalk");
 const figlet = require("figlet");
-const axios = require("axios");
 
 const { hackintoshPkgInstall } = require("./cliModel/index");
+const options = require("./options");
 
 const prompt = inquirer.createPromptModule();
 
@@ -25,10 +25,5 @@ console.log(
 );
 
 prompt(hackintoshPkgInstall).then((answers) => {
-    // options(answers);
-    console.log(answers);
-    axios
-        .get("https://api.github.com/repos/acidanthera/OpenCorePkg/releases/")
-        .then((x) => x.json())
-        .then((x) => console.log(x));
+    options(answers);
 });
