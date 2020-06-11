@@ -5,10 +5,20 @@
     "main": "index.js",
     "scripts": {
         "pkg-cli": "node index.js",
+        "patch-release": "npm version patch && npm publish && git push --follow-tags",
+        "minor-release": "npm version minor && npm publish && git push --follow-tags",
+        "major-release": "npm version major && npm publish && git push --follow-tags",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "bin": {
         "hackintosh-pkg-cli": "index.js"
+    },
+    "bugs": {
+        "url": "https://github.com/shreyas1307/hackintosh-pkg-cli/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/shreyas1307/hackintosh-pkg-cli.git"
     },
     "author": "Shreyas Balachandran",
     "license": "MIT",
