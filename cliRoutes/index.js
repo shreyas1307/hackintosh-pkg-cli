@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require('fs');
-// const path = require('path')
+const downloadsFolder = require('downloads-folder');
 const https = require('https')
 const prompt = inquirer.createPromptModule();
 
@@ -10,6 +10,9 @@ const wget = require('wget-improved')
 
 module.exports = class HackintoshPkgInstall {
     install(answers) {
+        const outputDir = `${downloadsFolder()}/hackintoshPkg`
+        fs.mkdirSync(outputDir, { recursive: true });
+
         const { packages } = answers;
         fs.mkdirSync('./downloads', { recursive: true });
         packages.forEach((answer) => {
@@ -22,7 +25,7 @@ module.exports = class HackintoshPkgInstall {
 
                     filteredUrl.forEach(fileURL => {
 
-                        const file = fs.createWriteStream(`./downloads/${fileURL.name}`)
+                        const file = fs.createWriteStream(`${outputDir}/${fileURL.name}`)
 
                         file.on('finish', () => file.close())
                         https.get(fileURL.url, (data) => {
@@ -34,10 +37,15 @@ module.exports = class HackintoshPkgInstall {
                     })
 
                 })
-                .catch((x) => {
-                    console.log("Sorry, Looks like an Error has occurred. Please check your internet connection!")
-                });
+                .catch((err) => {
+                    console.log(url)
+                    console.log("Sorry, Looks like an Error has occurred. ")
+                    console.log("Error: ", err)
+                })
+                .finally(() => console.log(`Assets from ${user}/${repo} finished downloading!`))
         });
+
+        return console.log(`Your downloads will be found under ${outputDir}`)
     }
 };
 
