@@ -1,12 +1,7 @@
-const inquirer = require("inquirer");
 const fs = require('fs');
 const downloadsFolder = require('downloads-folder');
 const https = require('https')
-const prompt = inquirer.createPromptModule();
-
-const { get } = require('../services');
 const { default: Axios } = require("axios");
-const wget = require('wget-improved')
 
 module.exports = class HackintoshPkgInstall {
     install(answers) {
