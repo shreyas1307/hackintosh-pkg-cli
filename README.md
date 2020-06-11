@@ -1,7 +1,7 @@
 
 
 # Hackintosh Package CLI (for OpenCore) -- EXPERIMENTAL
-  
+ [![version](https://img.shields.io/npm/v/hackintosh-pkg-cli.svg?color=blue)](https://www.npmjs.com/package/hackintosh-pkg-cli) [![downloads](https://img.shields.io/npm/dw/hackintosh-pkg-cli.svg)](https://www.npmjs.com/package/hackintosh-pkg-cli)
 
 ## Table of Contents
 
