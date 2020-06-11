@@ -17,6 +17,7 @@
         "axios": "^0.19.2",
         "chalk": "^4.0.0",
         "clear": "^0.1.0",
+        "downloads-folder": "^1.0.4",
         "figlet": "^1.4.0",
         "inquirer": "^7.1.0",
         "wget-improved": "^3.2.0"
