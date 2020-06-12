@@ -1,10 +1,29 @@
+const inquirer = require('inquirer')
 const fs = require('fs');
 const downloadsFolder = require('downloads-folder');
 const https = require('https')
 const { default: Axios } = require("axios");
+const { RELEASE_OR_DEBUG } = require('../cliModel/index')
+
+const prompt = inquirer.createPromptModule()
 
 module.exports = class HackintoshPkgInstall {
     install(answers) {
+        prompt(RELEASE_OR_DEBUG).then(({ releaseOrDebug }) => {
+            switch (releaseOrDebug) {
+                case 'RELEASE':
+                    return this.confirmation(releaseOrDebug, answers)
+                    break;
+                case 'DEBUG':
+                    return this.confirmation(releaseOrDebug, answers)
+                    break;
+                default:
+                    return;
+            }
+        })
+    }
+
+    confirmation(version, answers) {
         const outputDir = `${downloadsFolder()}/hackintoshPkg`
         fs.mkdirSync(outputDir, { recursive: true });
 
@@ -16,7 +35,14 @@ module.exports = class HackintoshPkgInstall {
 
             Axios.get(url)
                 .then((response) => {
-                    let filteredUrl = response.data.assets.map(x => ({ name: x.name, url: x.browser_download_url }))
+                    let filteredUrl = response.data.assets
+                        .filter(x => {
+                            if (x.name.includes(version.toLowerCase()) || x.name.includes(version.toUpperCase())) {
+                                return x
+                            }
+                            return x
+                        })
+                        .map(x => ({ name: x.name, url: x.browser_download_url }))
 
                     filteredUrl.forEach(fileURL => {
 
@@ -42,5 +68,7 @@ module.exports = class HackintoshPkgInstall {
 
         return console.log(`Your downloads will be found under ${outputDir}`)
     }
+
+
 };
 

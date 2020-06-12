@@ -32,3 +32,14 @@ module.exports.hackintoshPkgInstall = [
         ],
     },
 ];
+
+
+
+module.exports.RELEASE_OR_DEBUG = [
+    {
+        type: 'list',
+        name: 'releaseOrDebug',
+        message: "Would you like to download the Release or the Debug Version?",
+        choices: ['RELEASE', 'DEBUG']
+    }
+]
