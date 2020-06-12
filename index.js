@@ -10,6 +10,7 @@ const figlet = require("figlet");
 
 const { hackintoshPkgInstall } = require("./cliModel/index");
 const options = require("./options");
+const { default: Axios } = require("axios");
 
 const prompt = inquirer.createPromptModule();
 
@@ -27,9 +28,16 @@ console.log(
 appInitialize();
 
 function appInitialize() {
+    // let getUpdatedVersionsURL = "https://hackintosh-pkg-api.herokuapp.com/github/getUpdatedVersions"
+    // let getUpdatedVersionsData = [];
+    // Axios.get(getUpdatedVersionsURL).then((res) => {
+    //     res.data.allVersions.forEach(x => {
+    //         getUpdatedVersionsData.push(x)
+    //     })
     prompt(hackintoshPkgInstall).then((answers) => {
         if (answers.packages.length === 0) return appInitialize()
         return options(answers);
-    });
+        // });
+    })
 };
 

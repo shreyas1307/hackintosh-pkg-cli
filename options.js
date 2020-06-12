@@ -1,5 +1,5 @@
 const HackintoshPkgInstall = require("./cliRoutes/index");
 
-module.exports = (answers) => {
-    return new HackintoshPkgInstall().install(answers);
+module.exports = (answers, updatedVersionsList) => {
+    return new HackintoshPkgInstall().install(answers, updatedVersionsList);
 };
