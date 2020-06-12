@@ -24,6 +24,12 @@ console.log(
     )
 );
 
-prompt(hackintoshPkgInstall).then((answers) => {
-    options(answers);
-});
+appInitialize();
+
+function appInitialize() {
+    prompt(hackintoshPkgInstall).then((answers) => {
+        if (answers.packages.length === 0) return appInitialize()
+        return options(answers);
+    });
+};
+
