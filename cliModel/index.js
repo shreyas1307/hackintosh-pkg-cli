@@ -43,3 +43,12 @@ module.exports.RELEASE_OR_DEBUG = [
         choices: ['RELEASE', 'DEBUG']
     }
 ]
+
+module.exports.LATEST_OR_CUSTOM_VERSION = [
+    {
+        type: 'list',
+        name: 'latestOrCustom',
+        message: "Would you like to download the Latest or select which version yourself?",
+        choices: ['LATEST', 'SELECT VERSION']
+    }
+]
