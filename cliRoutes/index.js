@@ -3,12 +3,14 @@ const fs = require('fs');
 const downloadsFolder = require('downloads-folder');
 const https = require('https')
 const { default: Axios } = require("axios");
-const { RELEASE_OR_DEBUG } = require('../cliModel/index')
+const { RELEASE_OR_DEBUG, LATEST_OR_CUSTOM_VERSION } = require('../cliModel/index')
+const { optionsMaker } = require('../utils')
 
 const prompt = inquirer.createPromptModule()
 
 module.exports = class HackintoshPkgInstall {
-    install(answers) {
+    install(answers, updatedVersionsList = []) {
+
         prompt(RELEASE_OR_DEBUG).then(({ releaseOrDebug }) => {
             switch (releaseOrDebug) {
                 case 'RELEASE':
@@ -23,24 +25,38 @@ module.exports = class HackintoshPkgInstall {
         })
     }
 
+    // selectedVersion(packages, answers) { }
+
     confirmation(version, answers) {
+
+        const notVersion = RELEASE_OR_DEBUG[0].choices.find(x => x !== version)
         const outputDir = `${downloadsFolder()}/hackintoshPkg`
+
         fs.mkdirSync(outputDir, { recursive: true });
 
         const { packages } = answers;
-        fs.mkdirSync('./downloads', { recursive: true });
+
         packages.forEach((answer) => {
             const [user, repo] = answer.split('/')
-            const url = `https://api.github.com/repos/${user}/${repo}/releases/latest`;
+            const url = `https://hackintosh-pkg-api.herokuapp.com/github/dataByPackageName`;
+            const data = {
+                "user": user,
+                "repo": repo,
+            }
 
-            Axios.get(url)
+            Axios.post(url, { ...data })
                 .then((response) => {
-                    let filteredUrl = response.data.assets
+                    let findVersion = new RegExp("(" + version + ")", "gi")
+                    let dontFindNotVersion = new RegExp("(" + notVersion + ")", "gi")
+
+                    let filteredUrl = response.data.data.assets
                         .filter(x => {
-                            if (x.name.includes(version.toLowerCase()) || x.name.includes(version.toUpperCase())) {
-                                return x
+                            if (findVersion.test(x.name)) {
+                                return true
+                            } else if ((!findVersion.test(x.name)) && (!dontFindNotVersion.test(x.name))) {
+                                return true
                             }
-                            return x
+                            return false
                         })
                         .map(x => ({ name: x.name, url: x.browser_download_url }))
 
