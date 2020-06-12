@@ -85,33 +85,20 @@ Just type in the following command in your terminal and run it! (Please check FA
 
 The CLI currently currently is able to download Latest Asset releases from the following Repositories:
 
--[acidanthera/OpenCorePkg]("https://www.github.com/acidanthera/OpenCorePkg")
-
--[acidanthera/VirtualSMC]("https://www.github.com/acidanthera/VirtualSMC")
-
--[acidanthera/Lilu]("https://www.github.com/acidanthera/Lilu")
-
--[acidanthera/WhateverGreen]("https://www.github.com/acidanthera/WhateverGreen")
-
--[acidanthera/AppleALC]("https://www.github.com/acidanthera/AppleALC")
-
--[acidanthera/IntelMausi]("https://www.github.com/acidanthera/IntelMausi")
-
--[acidanthera/AirportBrcmFixup]("https://www.github.com/acidanthera/AirportBrcmFixup")
-
--[acidanthera/BrcmPatchRAM]("https://www.github.com/acidanthera/BrcmPatchRAM")
-
--[khronokernel/SmallTree-I211-AT-patch]("https://www.github.com/khronokernel/SmallTree-I211-AT-patch")
-
--[Mieze/AtherosE2200Ethernet]("https://www.github.com/Mieze/AtherosE2200Ethernet")
-
--[Mieze/RTL8111_driver_for_OS_X]("https://www.github.com/Mieze/RTL8111_driver_for_OS_X")
-
--[Mieze/LucyRTL8125Ethernet]("https://www.github.com/Mieze/LucyRTL8125Ethernet")
-
--[Sniki/OS-X-USB-Inject-All]("https://www.github.com/Sniki/OS-X-USB-Inject-All")
-
--[RehabMan/OS-X-USB-Inject-All]("https://www.github.com/RehabMan/OS-X-USB-Inject-All")
+- [acidanthera/OpenCorePkg](https://www.github.com/acidanthera/OpenCorePkg)
+- [acidanthera/VirtualSMC](https://www.github.com/acidanthera/VirtualSMC)
+- [acidanthera/Lilu](https://www.github.com/acidanthera/Lilu)
+- [acidanthera/WhateverGreen](https://www.github.com/acidanthera/WhateverGreen)
+- [acidanthera/AppleALC](https://www.github.com/acidanthera/AppleALC)
+- [acidanthera/IntelMausi](https://www.github.com/acidanthera/IntelMausi)
+- [acidanthera/AirportBrcmFixup](https://www.github.com/acidanthera/AirportBrcmFixup)
+- [acidanthera/BrcmPatchRAM](https://www.github.com/acidanthera/BrcmPatchRAM)
+- [khronokernel/SmallTree-I211-AT-patch](https://www.github.com/khronokernel/SmallTree-I211-AT-patch)
+- [Mieze/AtherosE2200Ethernet](https://www.github.com/Mieze/AtherosE2200Ethernet)
+- [Mieze/RTL8111_driver_for_OS_X](https://www.github.com/Mieze/RTL8111_driver_for_OS_X)
+- [Mieze/LucyRTL8125Ethernet](https://www.github.com/Mieze/LucyRTL8125Ethernet)
+- [Sniki/OS-X-USB-Inject-All](https://www.github.com/Sniki/OS-X-USB-Inject-All)
+- [RehabMan/OS-X-USB-Inject-All](https://www.github.com/RehabMan/OS-X-USB-Inject-All)
    
 
 # FAQs
