@@ -28,16 +28,19 @@ console.log(
 appInitialize();
 
 function appInitialize() {
-    // let getUpdatedVersionsURL = "https://hackintosh-pkg-api.herokuapp.com/github/getUpdatedVersions"
-    // let getUpdatedVersionsData = [];
-    // Axios.get(getUpdatedVersionsURL).then((res) => {
-    //     res.data.allVersions.forEach(x => {
-    //         getUpdatedVersionsData.push(x)
-    //     })
-    prompt(hackintoshPkgInstall).then((answers) => {
-        if (answers.packages.length === 0) return appInitialize()
-        return options(answers);
-        // });
-    })
+    let getUpdatedVersionsURL = "http://hackintosh-pkg-api.herokuapp.com/github/getUpdatedVersions"
+    let getUpdatedVersionsData = [];
+    console.log(chalk.green("Downloading a few dependencies..."))
+    Axios.get(getUpdatedVersionsURL).then((res) => {
+
+        res.data.allVersions.forEach(x => {
+            getUpdatedVersionsData.push(x)
+        })
+
+        prompt(hackintoshPkgInstall).then((answers) => {
+            if (answers.packages.length === 0) return appInitialize()
+            return options(answers, getUpdatedVersionsData);
+        });
+    }).catch(err => console.log(err))
 };
 
