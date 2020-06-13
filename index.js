@@ -7,6 +7,7 @@ const inquirer = require("inquirer");
 const clear = require("clear");
 const chalk = require("chalk");
 const figlet = require("figlet");
+const ora = require('ora');
 
 const { hackintoshPkgInstall } = require("./cliModel/index");
 const options = require("./options");
@@ -24,20 +25,28 @@ console.log(
         })
     )
 );
+const spinner = ora('Downloading a few dependencies...')
+spinner.color = 'yellow'
+spinner.start();
 
 appInitialize();
 
 function appInitialize() {
-    // let getUpdatedVersionsURL = "https://hackintosh-pkg-api.herokuapp.com/github/getUpdatedVersions"
-    // let getUpdatedVersionsData = [];
-    // Axios.get(getUpdatedVersionsURL).then((res) => {
-    //     res.data.allVersions.forEach(x => {
-    //         getUpdatedVersionsData.push(x)
-    //     })
-    prompt(hackintoshPkgInstall).then((answers) => {
-        if (answers.packages.length === 0) return appInitialize()
-        return options(answers);
-        // });
-    })
+    let getUpdatedVersionsURL = "http://hackintosh-pkg-api.herokuapp.com/github/getUpdatedVersions"
+    let getUpdatedVersionsData = [];
+    // console.log(chalk.green("Downloading a few dependencies..."))
+    Axios.get(getUpdatedVersionsURL).then((res) => {
+        spinner.color = 'green'
+        spinner.text = "Downloaded dependencies"
+        spinner.succeed()
+        res.data.allVersions.forEach(x => {
+            getUpdatedVersionsData.push(x)
+        })
+
+        prompt(hackintoshPkgInstall).then((answers) => {
+            if (answers.packages.length === 0) return appInitialize()
+            return options(answers, getUpdatedVersionsData);
+        });
+    }).catch(err => console.log(err))
 };
 
