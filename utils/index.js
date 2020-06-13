@@ -5,7 +5,7 @@ module.exports.optionsMaker = (listItem = []) => {
         name: `${listItem.package}/version`,
         message:
             `Select version of ${listItem.package} you would like to download: \n`,
-        pageSize: 20,
+        pageSize: `${this.TERMINAL_ROWS}`,
         choices: [],
     }
     listItem.version.forEach(versionItem => {
@@ -14,3 +14,5 @@ module.exports.optionsMaker = (listItem = []) => {
 
     return { options: config, package: listItem.package }
 }
+
+module.exports.TERMINAL_ROWS = process.stdout.rows

@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const { TERMINAL_ROWS } = require("../utils");
 
 module.exports.hackintoshPkgInstall = [
     {
@@ -7,7 +8,7 @@ module.exports.hackintoshPkgInstall = [
         message:
             "Select packages or KEXTS for your Hackintosh Project (Latest Releases)",
         default: [],
-        pageSize: 9,
+        pageSize: `${TERMINAL_ROWS}`,
         choices: [
             new inquirer.Separator(),
             new inquirer.Separator("Must Haves"),
