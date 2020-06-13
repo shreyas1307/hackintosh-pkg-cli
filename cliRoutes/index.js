@@ -1,10 +1,12 @@
 const inquirer = require('inquirer')
 const fs = require('fs');
 const downloadsFolder = require('downloads-folder');
+const ora = require('ora');
 const https = require('https')
 const { default: Axios } = require("axios");
 const { RELEASE_OR_DEBUG, LATEST_OR_CUSTOM_VERSION } = require('../cliModel/index')
-const { optionsMaker } = require('../utils')
+const { optionsMaker } = require('../utils');
+const { promise } = require('ora');
 
 const prompt = inquirer.createPromptModule()
 
@@ -79,6 +81,8 @@ module.exports = class HackintoshPkgInstall {
         const outputDir = `${downloadsFolder()}/hackintoshPkg`
         fs.mkdirSync(outputDir, { recursive: true });
 
+        const packageReduceArray = []
+
         packages.forEach((pkg) => {
             const [user, repo] = pkg.package.split('/')
 
@@ -89,8 +93,22 @@ module.exports = class HackintoshPkgInstall {
                 "version": pkg.version
             }
 
-            this.downloadFiles(version, outputDir, notVersion, url, data);
+            packageReduceArray.push({
+                version,
+                outputDir,
+                notVersion,
+                url,
+                data,
+                dl: this.downloadFiles
+            })
         })
+
+        packageReduceArray.map(e => e.dl).reduce((prev, curr, i) => {
+            return prev.then(() => {
+                const { version, outputDir, notVersion, url, data } = packageReduceArray[i]
+                return curr(version, outputDir, notVersion, url, data)
+            })
+        }, Promise.resolve())
 
         return console.log(`Your downloads will be found under ${outputDir}`)
     }
@@ -104,6 +122,8 @@ module.exports = class HackintoshPkgInstall {
 
         const { packages } = answers;
 
+        const packageReduceArray = []
+
         packages.forEach((answer) => {
             const [user, repo] = answer.split('/')
             const url = `https://hackintosh-pkg-api.herokuapp.com/github/dataByPackageName`;
@@ -112,14 +132,35 @@ module.exports = class HackintoshPkgInstall {
                 "repo": repo,
             }
 
-            this.downloadFiles(version, outputDir, notVersion, url, data);
+            packageReduceArray.push({
+                version,
+                outputDir,
+                notVersion,
+                url,
+                data,
+                dl: this.downloadFiles
+            })
+
         });
+
+        // Alex rocks with sweaty socks : D
+        packageReduceArray.map(e => e.dl).reduce((prev, curr, i) => {
+            return prev.then(() => {
+                const { version, outputDir, notVersion, url, data } = packageReduceArray[i]
+                return curr(version, outputDir, notVersion, url, data)
+            })
+        }, Promise.resolve())
+
 
         return console.log(`Your downloads will be found under ${outputDir}`)
     }
 
+
     downloadFiles = (version, outputDir, notVersion, url, data) => {
-        Axios.post(url, { ...data })
+        const spinner = ora(`Downloading Assets from ${data.user}/${data.repo}..`)
+        spinner.color = 'yellow'
+        spinner.start()
+        return Axios.post(url, { ...data })
             .then((response) => {
                 let findVersion = new RegExp("(" + version + ")", "gi")
                 let dontFindNotVersion = new RegExp("(" + notVersion + ")", "gi")
@@ -147,14 +188,14 @@ module.exports = class HackintoshPkgInstall {
                     })
 
                 })
-
+                return spinner
             })
-            .catch((err) => {
-                console.log(url)
-                console.log("Sorry, Looks like an Error has occurred. ")
-                console.log("Error: ", err)
+            .then((spin) => {
+                spin.clear()
+                spin.text = `Assets downloaded from ${data.user}/${data.repo}!`
+                spin.color = 'green'
+                spin.succeed()
             })
-            .finally(() => console.log(`Assets from ${data.user}/${data.repo} finished downloading!`))
     }
 };
 
