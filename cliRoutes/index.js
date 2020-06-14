@@ -11,15 +11,19 @@ const { promise } = require('ora');
 const prompt = inquirer.createPromptModule()
 
 module.exports = class HackintoshPkgInstall {
+    AllPackages = []
 
-    install(answers, updatedVersionsList = []) {
+    constructor(AllPackages) {
+        this.AllPackages = AllPackages
+    }
 
+    install(answers) {
         prompt(LATEST_OR_CUSTOM_VERSION).then(({ latestOrCustom }) => {
             switch (latestOrCustom) {
                 case 'LATEST':
                     return this.latestVersion(answers);
                 case 'SELECT VERSION':
-                    return this.selectVersion(answers, updatedVersionsList);
+                    return this.selectVersion(answers, this.AllPackages);
                 default:
                     return null;
             }
@@ -160,42 +164,85 @@ module.exports = class HackintoshPkgInstall {
         const spinner = ora(`Downloading Assets from ${data.user}/${data.repo}..`)
         spinner.color = 'yellow'
         spinner.start()
-        return Axios.post(url, { ...data })
-            .then((response) => {
-                let findVersion = new RegExp("(" + version + ")", "gi")
-                let dontFindNotVersion = new RegExp("(" + notVersion + ")", "gi")
 
-                let filteredUrl = response.data.data.assets
-                    .filter(x => {
-                        if (findVersion.test(x.name)) {
-                            return true
-                        } else if ((!findVersion.test(x.name)) && (!dontFindNotVersion.test(x.name))) {
-                            return true
-                        }
-                        return false
+        let repoFound = this.AllPackages.find(x => x.package === `${data.user}/${data.repo}`)
+
+        if (repoFound.version[0].downloadLink) {
+            const headers = {
+                "Accept": "*/*"
+            }
+            if (data.version) {
+                let versionFound = repoFound.version.find(x => x.release_version === data.version)
+                const file = fs.createWriteStream(`${outputDir}/${data.user}${data.repo}${versionFound.release_version}.zip`)
+                file.on('finish', () => file.close())
+
+                return Axios
+                    .get(versionFound.downloadLink, { responseType: 'stream' })
+                    .then((response) => {
+                        response.data.pipe(file);
+                        return spinner
                     })
-                    .map(x => ({ name: x.name, url: x.browser_download_url }))
-
-                filteredUrl.forEach(fileURL => {
-
-                    const file = fs.createWriteStream(`${outputDir}/${fileURL.name}`)
-
-                    file.on('finish', () => file.close())
-                    https.get(fileURL.url, (data) => {
-                        https.get(data.headers.location, (xdata) => {
-                            xdata.pipe(file)
-                        })
+                    .then((spin) => {
+                        spin.clear()
+                        spin.text = `Assets downloaded from ${data.user}/${data.repo}!`
+                        spin.color = 'green'
+                        spin.succeed()
                     })
+            }
 
+            const file = fs.createWriteStream(`${outputDir}/${data.user}${data.repo}-${repoFound.version[0].release_version}.zip`)
+            file.on('finish', () => file.close())
+            return Axios
+                .get(repoFound.version[0].downloadLink, { responseType: 'stream' })
+                .then((response) => {
+                    response.data.pipe(file);
+                    return spinner
                 })
-                return spinner
-            })
-            .then((spin) => {
-                spin.clear()
-                spin.text = `Assets downloaded from ${data.user}/${data.repo}!`
-                spin.color = 'green'
-                spin.succeed()
-            })
+                .then((spin) => {
+                    spin.clear()
+                    spin.text = `Assets downloaded from ${data.user}/${data.repo}!`
+                    spin.color = 'green'
+                    spin.succeed()
+                })
+
+        } else {
+            return Axios.post(url, { ...data })
+                .then((response) => {
+                    let findVersion = new RegExp("(" + version + ")", "gi")
+                    let dontFindNotVersion = new RegExp("(" + notVersion + ")", "gi")
+
+                    let filteredUrl = response.data.data.assets
+                        .filter(x => {
+                            if (findVersion.test(x.name)) {
+                                return true
+                            } else if ((!findVersion.test(x.name)) && (!dontFindNotVersion.test(x.name))) {
+                                return true
+                            }
+                            return false
+                        })
+                        .map(x => ({ name: x.name, url: x.browser_download_url }))
+
+                    filteredUrl.forEach(fileURL => {
+
+                        const file = fs.createWriteStream(`${outputDir}/${fileURL.name}`)
+
+                        file.on('finish', () => file.close())
+                        https.get(fileURL.url, (data) => {
+                            https.get(data.headers.location, (xdata) => {
+                                xdata.pipe(file)
+                            })
+                        })
+
+                    })
+                    return spinner
+                })
+                .then((spin) => {
+                    spin.clear()
+                    spin.text = `Assets downloaded from ${data.user}/${data.repo}!`
+                    spin.color = 'green'
+                    spin.succeed()
+                })
+        }
     }
 };
 

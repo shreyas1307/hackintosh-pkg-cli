@@ -108,7 +108,15 @@ The CLI currently currently is able to download Latest Asset releases from the f
 
 - [Sniki/OS-X-USB-Inject-All](https://www.github.com/Sniki/OS-X-USB-Inject-All)
 
-- [RehabMan/OS-X-USB-Inject-All](https://www.github.com/RehabMan/OS-X-USB-Inject-All) -- Working on the download for this.
+- [RehabMan/OS-X-USB-Inject-All](https://www.github.com/RehabMan/OS-X-USB-Inject-All)
+
+- [RehabMan/OS-X-USB-Inject-All](https://www.github.com/RehabMan/VoodooTSCSync)
+
+- [XLNCUSBFIX]
+
+- [VoodooHDA]
+
+## For more information, please refer to the OpenCore "Gathering Files" Guide [here](https://dortania.github.io/OpenCore-Desktop-Guide/ktext.html) for more Info.
    
 
 # FAQs
@@ -144,6 +152,8 @@ The CLI currently currently is able to download Latest Asset releases from the f
 # Authors
 
 - [@shreyas1307](https://github.com/shreyas1307) - Creator and Maintainer
+
+- [@ale8k](https://github.com/ale8k) - Contributer
  
 
 # License
