@@ -19,7 +19,7 @@
 
 - [FAQs](#faqs)
 
-- [License](https://github.com/devisle/advanced-react-cli/blob/master/LICENSE)
+- [License](https://github.com/shreyas1307/hackintosh-pkg-cli/blob/master/LICENSE)
 
   
 
@@ -60,11 +60,11 @@ Just type in the following command in your terminal and run it! (Please check FA
 
 - NPM:
 
-`npm i -g advanced-react-cli`
+`npm i -g hackintosh-pkg-cli`
 
 - Yarn:
 
-`yarn global add advanced-react-cli`
+`yarn global add hackintosh-pkg-cli`
 
 - To invoke the CLI (Both **NPM** & **Yarn**)
 
@@ -113,7 +113,7 @@ The CLI currently currently is able to download Latest Asset releases from the f
 
 # FAQs
 
-1. How can I test this out?  
+## 1. How can I test this out?  
 
 - If you'd like to try it out , Run the following command `npx hackintosh-pkg-cli` in your terminal.
 
@@ -127,26 +127,25 @@ The CLI currently currently is able to download Latest Asset releases from the f
 
 - After that, you may open the folder in your editor of choice. Once again, in the terminal you may simply run `npm run pkg-cli` or `yarn run pkg-cli` to get it working. And voila!
 
-2. Can I report any issues or bugs with the CLI? How do I report it?
+## 2. Can I report any issues or bugs with the CLI? How do I report it?
 - I appreciate all the reports on bugs or issues from the community!
 - You may report an issue by going to this [Here](https://github.com/shreyas1307/hackintosh-pkg-cli/issues/new/choose) and next to the "Bug Report", click the button "Get Started"!
-- If you wish to get in touch with us quicker, you may join our Discord server! The link is under the "Dev Isle Community" section
 
-3. I would like to make a feature request. Where do I do it?
+## 3. I would like to make a feature request. Where do I do it?
 
 - I am open to your suggestions for the CLI!
 
 - If you'd like to make a new feature request, just head over [here](https://github.com/shreyas1307/hackintosh-pkg-cli/issues/new/choose) and next to the "Feature Request", click the button "Get Started"!
 
-4. I would like to make a pull request. How can I do it?
+## 4. I would like to make a pull request. How can I do it?
 #### * Coming soon*
   
 
-## Authors
+# Authors
 
 - [@shreyas1307](https://github.com/shreyas1307) - Creator and Maintainer
  
 
-## License
+# License
 
 The source code is released under the [MIT](https://github.com/shreyas1307/hackintosh-pkg-cli/blob/master/LICENSE).
