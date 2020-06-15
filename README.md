@@ -110,7 +110,7 @@ The CLI currently currently is able to download Latest Asset releases from the f
 
 - [RehabMan/OS-X-USB-Inject-All](https://www.github.com/RehabMan/OS-X-USB-Inject-All)
 
-- [RehabMan/OS-X-USB-Inject-All](https://www.github.com/RehabMan/VoodooTSCSync)
+- [RehabMan/VoodooTSCSync](https://www.github.com/RehabMan/VoodooTSCSync)
 
 - [XLNCUSBFIX]
 
