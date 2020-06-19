@@ -1,8 +1,8 @@
 
-
 # Hackintosh Package CLI (for OpenCore) -- EXPERIMENTAL
  [![version](https://img.shields.io/npm/v/hackintosh-pkg-cli.svg?color=blue)](https://www.npmjs.com/package/hackintosh-pkg-cli) [![downloads](https://img.shields.io/npm/dw/hackintosh-pkg-cli.svg)](https://www.npmjs.com/package/hackintosh-pkg-cli)
 
+![Hackintosh Package Downloader Logo](https://github.com/shreyas1307/hackintosh-pkg-electron/blob/master/logo.png?raw=true)
 ## Table of Contents
 
 - [About](#about)
@@ -25,7 +25,7 @@
 
 ## About
 
-This is an npm package helps you download some of the mandatory packages and optional Kexts for your OpenCore Hackintosh Build.
+This is an npm package helps you download some of the mandatory packages and optional Kexts for your OpenCore Hackintosh Build. A GUI Desktop App is also in the works, and will be coming soon.
   
 
 ## Project's Purpose
