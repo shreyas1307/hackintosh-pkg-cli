@@ -3,25 +3,23 @@
  [![version](https://img.shields.io/npm/v/hackintosh-pkg-cli.svg?color=blue)](https://www.npmjs.com/package/hackintosh-pkg-cli) [![downloads](https://img.shields.io/npm/dw/hackintosh-pkg-cli.svg)](https://www.npmjs.com/package/hackintosh-pkg-cli)
 
 ![Hackintosh Package Downloader Logo](https://raw.githubusercontent.com/shreyas1307/hackintosh-pkg-electron/master/logo.png?token=AKZO6POLQT6NXPDM6WG2CG265RIBE)
-## Table of Contents
 
-- [About](#about)
+<p align="center"><h2 align="center">Table of Contents</h2></p>
+<p align="center">
+	<a href="#about">About</a> |
+	<a href="#projects-purpose">Project's purpose</a> |
+	<a href="#credits">Credits</a> |
+	<a href="#run-the-cli">Run the CLI</a> |
+	<a href="#installing-the-cli-globally">Installing the CLI globally</a> |
+ <a href="#packages">Packages</a> |
+ <a href="#faqs">FAQs</a> |
+	<a href="#authors">Authors</a> |
+	<a href="#license">License</a>
+</p>
 
-- [Project's purpose](#projects-purpose)
-
-- [Credits](#credits)
-
-- [Run the CLI](#run-the-cli)
-
-- [Installing the CLI globally](#installing-the-cli-globally)
-
-- [Packages](#packages)
-
-- [FAQs](#faqs)
-
-- [License](https://github.com/shreyas1307/hackintosh-pkg-cli/blob/master/LICENSE)
-
-  
+<p align="center">
+	<img src="https://github.com/shreyas1307/hackintosh-pkg-cli/blob/master/%5BCLI%5D%20Hackintosh%20Package%20Downloader%20x800.gif?raw=true" />
+</p>
 
 ## About
 
