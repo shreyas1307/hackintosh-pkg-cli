@@ -12,6 +12,8 @@ const ora = require('ora');
 const { hackintoshPkgInstall } = require("./cliModel/index");
 const options = require("./options");
 const { default: Axios } = require("axios");
+const dotenv = require("dotenv");
+dotenv.config()
 
 const prompt = inquirer.createPromptModule();
 
@@ -32,9 +34,13 @@ spinner.start();
 appInitialize();
 
 function appInitialize() {
-    let getUpdatedVersionsURL = "http://hackintosh-pkg-api.herokuapp.com/github/getUpdatedVersions"
+    let getUpdatedVersionsURL = process.env.ENVIRONMENT === "DEVELOPMENT"
+        ? `http://localhost:${process.env.PORT}/github/getUpdatedVersions`
+        : `https://hackintosh-pkg-api.herokuapp.com/github/getUpdatedVersions`;
+
+    console.log(process.env.ENVIRONMENT)
     let getUpdatedVersionsData = [];
-    // console.log(chalk.green("Downloading a few dependencies..."))
+    console.log(chalk.green("Downloading a few dependencies..."))
     Axios.get(getUpdatedVersionsURL).then((res) => {
         spinner.color = 'green'
         spinner.text = "Downloaded dependencies"
