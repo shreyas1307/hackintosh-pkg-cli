@@ -102,7 +102,7 @@ The CLI currently currently is able to download Latest Asset releases from the f
 
 - [Mieze/RTL8111_driver_for_OS_X](https://www.github.com/Mieze/RTL8111_driver_for_OS_X)
 
-- [Mieze/LucyRTL8125Ethernet](https://www.github.com/Mieze/LucyRTL8125Ethernet) -- Working on the download for this.
+- [Mieze/LucyRTL8125Ethernet](https://www.github.com/Mieze/LucyRTL8125Ethernet)
 
 - [Sniki/OS-X-USB-Inject-All](https://www.github.com/Sniki/OS-X-USB-Inject-All)
 
@@ -113,6 +113,12 @@ The CLI currently currently is able to download Latest Asset releases from the f
 - [XLNCUSBFIX]
 
 - [VoodooHDA]
+
+- [acidanthera/OcBinaryData](https://www.github.com/acidanthera/OcBinaryData)
+
+- [Pavo-IM/AGPMInjector](https://www.github.com/Pavo-IM/AGPMInjector)
+
+- [acidanthera/CPUFriend](https://www.github.com/acidanthera/CPUFriend)
 
 ## For more information, please refer to the OpenCore "Gathering Files" Guide [here](https://dortania.github.io/OpenCore-Desktop-Guide/ktext.html) for more Info.
    
