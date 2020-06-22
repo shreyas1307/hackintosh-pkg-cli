@@ -38,9 +38,7 @@ function appInitialize() {
         ? `http://localhost:${process.env.PORT}/github/getUpdatedVersions`
         : `https://hackintosh-pkg-api.herokuapp.com/github/getUpdatedVersions`;
 
-    console.log(process.env.ENVIRONMENT)
     let getUpdatedVersionsData = [];
-    console.log(chalk.green("Downloading a few dependencies..."))
     Axios.get(getUpdatedVersionsURL).then((res) => {
         spinner.color = 'green'
         spinner.text = "Downloaded dependencies"
