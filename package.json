@@ -1,6 +1,6 @@
 {
     "name": "hackintosh-pkg-cli",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "A CLI to help download the latest OpenCore Package and Kexts for your Hackintosh!",
     "main": "index.js",
     "scripts": {
