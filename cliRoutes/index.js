@@ -6,7 +6,8 @@ const https = require('https')
 const { default: Axios } = require("axios");
 const { RELEASE_OR_DEBUG, LATEST_OR_CUSTOM_VERSION } = require('../cliModel/index')
 const { optionsMaker } = require('../utils');
-const { promise } = require('ora');
+const dotenv = require("dotenv");
+dotenv.config()
 
 const prompt = inquirer.createPromptModule()
 
@@ -89,8 +90,9 @@ module.exports = class HackintoshPkgInstall {
 
         packages.forEach((pkg) => {
             const [user, repo] = pkg.package.split('/')
-
-            const url = `https://hackintosh-pkg-api.herokuapp.com/github/dataByPackageName`;
+            const url = process.env.ENVIRONMENT === "DEVELOPMENT"
+                ? `http://localhost:${process.env.PORT}/github/dataByPackageName`
+                : `https://hackintosh-pkg-api.herokuapp.com/github/dataByPackageName`;
             const data = {
                 "user": user,
                 "repo": repo,
@@ -130,7 +132,9 @@ module.exports = class HackintoshPkgInstall {
 
         packages.forEach((answer) => {
             const [user, repo] = answer.split('/')
-            const url = `https://hackintosh-pkg-api.herokuapp.com/github/dataByPackageName`;
+            const url = process.env.ENVIRONMENT === "DEVELOPMENT"
+                ? `http://localhost:${process.env.PORT}/github/dataByPackageName`
+                : `https://hackintosh-pkg-api.herokuapp.com/github/dataByPackageName`;
             const data = {
                 "user": user,
                 "repo": repo,
@@ -173,7 +177,7 @@ module.exports = class HackintoshPkgInstall {
             }
             if (data.version) {
                 let versionFound = repoFound.version.find(x => x.release_version === data.version)
-                const file = fs.createWriteStream(`${outputDir}/${data.user}${data.repo}${versionFound.release_version}.zip`)
+                const file = fs.createWriteStream(`${outputDir}/${data.user}-${data.repo}-${versionFound.release_version}.zip`)
                 file.on('finish', () => file.close())
 
                 return Axios
@@ -188,9 +192,10 @@ module.exports = class HackintoshPkgInstall {
                         spin.color = 'green'
                         spin.succeed()
                     })
+                    .catch((err) => console.log(err))
             }
 
-            const file = fs.createWriteStream(`${outputDir}/${data.user}${data.repo}-${repoFound.version[0].release_version}.zip`)
+            const file = fs.createWriteStream(`${outputDir}/${data.user}-${data.repo}-${repoFound.version[0].release_version}.zip`)
             file.on('finish', () => file.close())
             return Axios
                 .get(repoFound.version[0].downloadLink, { responseType: 'stream' })
@@ -204,6 +209,7 @@ module.exports = class HackintoshPkgInstall {
                     spin.color = 'green'
                     spin.succeed()
                 })
+                .catch((err) => console.log(err))
 
         } else {
             return Axios.post(url, { ...data })
@@ -223,8 +229,8 @@ module.exports = class HackintoshPkgInstall {
                         .map(x => ({ name: x.name, url: x.browser_download_url }))
 
                     filteredUrl.forEach(fileURL => {
-
-                        const file = fs.createWriteStream(`${outputDir}/${fileURL.name}`)
+                        const fileNameIfNotIncludeRepoName = (fileURL.name.includes(data.user) || fileURL.name.includes(data.repo)) ? `${fileURL.name}` : `${data.user}-${data.repo}-${fileURL.name}`
+                        const file = fs.createWriteStream(`${outputDir}/${fileNameIfNotIncludeRepoName}`)
 
                         file.on('finish', () => file.close())
                         https.get(fileURL.url, (data) => {
@@ -242,6 +248,7 @@ module.exports = class HackintoshPkgInstall {
                     spin.color = 'green'
                     spin.succeed()
                 })
+                .catch((err) => console.log(err))
         }
     }
 };
